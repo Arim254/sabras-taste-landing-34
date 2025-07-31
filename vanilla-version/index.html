@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabras Kitchen - Catering Services</title>
+    <meta name="description" content="Delicious catering for weddings, parties, and corporate events. Taste the tradition, experience the flavor.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sabras Kitchen - Catering Services">
+    <meta property="og:description" content="Delicious catering for weddings, parties, and corporate events">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Sabras Kitchen</h1>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <a href="#about" onclick="scrollToSection('about')">About</a>
+                    <a href="#services" onclick="scrollToSection('services')">Services</a>
+                    <a href="#gallery" onclick="scrollToSection('gallery')">Gallery</a>
+                    <a href="#testimonials" onclick="scrollToSection('testimonials')">Reviews</a>
+                    <button class="btn btn-primary" onclick="scrollToSection('contact')">Book Your Event</button>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <nav class="nav-mobile" id="mobileNav">
+                <a href="#about" onclick="scrollToSection('about'); closeMobileMenu()">About</a>
+                <a href="#services" onclick="scrollToSection('services'); closeMobileMenu()">Services</a>
+                <a href="#gallery" onclick="scrollToSection('gallery'); closeMobileMenu()">Gallery</a>
+                <a href="#testimonials" onclick="scrollToSection('testimonials'); closeMobileMenu()">Reviews</a>
+                <button class="btn btn-primary" onclick="scrollToSection('contact'); closeMobileMenu()">Book Your Event</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Taste the Tradition.
+                <br>
+                <span class="hero-subtitle">Experience the Flavor.</span>
+            </h1>
+            <p class="hero-description">
+                Delicious catering for weddings, parties, and corporate events.
+            </p>
+            <button class="btn btn-primary btn-lg" onclick="scrollToSection('contact')">
+                Book Your Event
+            </button>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">About Sabras Kitchen</h2>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <p class="about-lead">
+                            Born from family recipes passed down through generations, Sabras Kitchen brings 
+                            authentic taste and elegant presentation to every plate.
+                        </p>
+                        
+                        <p class="about-text">
+                            Our passion for culinary excellence stems from a deep-rooted tradition of hospitality 
+                            and love for good food. Every dish we create tells a story of heritage, crafted with 
+                            the finest ingredients and presented with the care your special moments deserve.
+                        </p>
+                        
+                        <div class="quote-section">
+                            <blockquote class="quote">
+                                "Food is the thread that weaves families together, and we are honored to be part of your story."
+                            </blockquote>
+                            <p class="quote-author">- The Sabras Kitchen Family</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="services-header">
+                <h2 class="section-title">Our Catering Services</h2>
+                <p class="section-description">
+                    From intimate gatherings to grand celebrations, we create memorable culinary experiences tailored to your special moments.
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎂</div>
+                    <h3 class="service-title">Wedding Catering</h3>
+                    <p class="service-description">
+                        Make your special day unforgettable with our elegant wedding catering services, featuring customized menus and beautiful presentation.
+                    </p>
+                    <ul class="service-features">
+                        <li>Custom menu design</li>
+                        <li>Elegant buffet setups</li>
+                        <li>Professional service staff</li>
+                        <li>Kosher and dietary accommodations</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="scrollToSection('contact')">Get a Quote</button>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🍽️</div>
+                    <h3 class="service-title">Private Dinners</h3>
+                    <p class="service-description">
+                        Intimate dining experiences crafted for your home or private venue, perfect for anniversaries, family gatherings, and special occasions.
+                    </p>
+                    <ul class="service-features">
+                        <li>In-home chef service</li>
+                        <li>Personalized menu planning</li>
+                        <li>Intimate table settings</li>
+                        <li>Wine pairing recommendations</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="scrollToSection('contact')">Get a Quote</button>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3 class="service-title">Corporate Events</h3>
+                    <p class="service-description">
+                        Professional catering solutions for business meetings, conferences, and corporate celebrations that impress clients and colleagues.
+                    </p>
+                    <ul class="service-features">
+                        <li>Business lunch catering</li>
+                        <li>Conference break services</li>
+                        <li>Executive dinner events</li>
+                        <li>Flexible scheduling options</li>
+                    </ul>
+                    <button class="btn btn-outline" onclick="scrollToSection('contact')">Get a Quote</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="gallery-header">
+                <h2 class="section-title">Our Culinary Creations</h2>
+                <p class="section-description">
+                    A glimpse into our beautifully crafted dishes and elegant presentation that make every event memorable.
+                </p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="../src/assets/gallery-1.jpg" alt="Elegant appetizer platter" />
+                    <div class="gallery-overlay">
+                        <p>Elegant Appetizers</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="../src/assets/gallery-2.jpg" alt="Wedding cake display" />
+                    <div class="gallery-overlay">
+                        <p>Wedding Desserts</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="../src/assets/gallery-3.jpg" alt="Gourmet main course" />
+                    <div class="gallery-overlay">
+                        <p>Gourmet Entrees</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="../src/assets/gallery-4.jpg" alt="Buffet setup" />
+                    <div class="gallery-overlay">
+                        <p>Buffet Services</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="../src/assets/gallery-5.jpg" alt="Corporate lunch spread" />
+                    <div class="gallery-overlay">
+                        <p>Corporate Catering</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="../src/assets/gallery-6.jpg" alt="Private dinner table" />
+                    <div class="gallery-overlay">
+                        <p>Private Dining</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="testimonials-header">
+                <h2 class="section-title">What Our Clients Say</h2>
+                <p class="section-description">
+                    Don't just take our word for it - hear from the families and businesses who trusted us with their special moments.
+                </p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <span>★★★★★</span>
+                    </div>
+                    <blockquote class="testimonial-text">
+                        "The food was stunning and full of flavor—our guests are still talking about it! Sabras Kitchen made our wedding day absolutely perfect."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <p class="author-name">Miriam W.</p>
+                        <p class="author-event">Wedding Reception</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <span>★★★★★</span>
+                    </div>
+                    <blockquote class="testimonial-text">
+                        "Professional, delicious, and beautifully presented. The corporate lunch was a huge success and impressed all our clients."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <p class="author-name">David S.</p>
+                        <p class="author-event">Corporate Event</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <span>★★★★★</span>
+                    </div>
+                    <blockquote class="testimonial-text">
+                        "From the first bite to the last, everything was exceptional. The personal touch and attention to detail made our anniversary dinner unforgettable."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <p class="author-name">Sarah M.</p>
+                        <p class="author-event">Private Dinner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-banner">
+                <p class="cta-title">Ready to create your own memorable experience?</p>
+                <p class="cta-text">Join our family of satisfied clients and let us make your event extraordinary.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-header">
+                <h2 class="section-title">Plan Your Perfect Event</h2>
+                <p class="section-description">
+                    Ready to create an unforgettable culinary experience? Let's discuss your vision and make it a delicious reality.
+                </p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-form-card">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Event Inquiry</h3>
+                            <p>Tell us about your upcoming event and we'll create the perfect menu for you.</p>
+                        </div>
+                        <div class="card-content">
+                            <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="eventDate">Event Date</label>
+                                    <input type="date" id="eventDate" name="eventDate" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="eventType">Event Type</label>
+                                    <select id="eventType" name="eventType" required>
+                                        <option value="">Select event type</option>
+                                        <option value="wedding">Wedding</option>
+                                        <option value="private-dinner">Private Dinner</option>
+                                        <option value="corporate">Corporate Event</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message">Tell us about your event</label>
+                                    <textarea id="message" name="message" rows="4" placeholder="Number of guests, dietary restrictions, venue details, etc."></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-full">Send Inquiry</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Contact Details</h4>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>(555) 123-4567</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">✉️</span>
+                                <span>hello@sabraskitchen.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">⏰</span>
+                                <span>We respond within 24 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Quick Chat</h4>
+                            <p>Prefer to talk? Send us a message on WhatsApp for immediate assistance.</p>
+                            <a href="https://wa.me/1234567890" class="btn btn-outline btn-full" target="_blank">
+                                Chat on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-content">
+                            <h4>Event Planning</h4>
+                            <p>We work closely with event planners and venues to ensure seamless coordination for your special day.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Sabras Kitchen</h3>
+                    <p>Bringing authentic taste and elegant presentation to every plate. Creating memorable culinary experiences for life's special moments.</p>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Information</h4>
+                    <div class="footer-contact-item">
+                        <span class="footer-icon">📞</span>
+                        <span>(555) 123-4567</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span class="footer-icon">✉️</span>
+                        <span>hello@sabraskitchen.com</span>
+                    </div>
+                </div>
+                
+                <div class="footer-social">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">📷 Instagram</a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">📘 Facebook</a>
+                    </div>
+                    
+                    <div class="footer-services">
+                        <p>Wedding Catering</p>
+                        <p>Private Dinners</p>
+                        <p>Corporate Events</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 Sabras Kitchen. All rights reserved.</p>
+                <p>Made with ❤️ for food lovers everywhere</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

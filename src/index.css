@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Sabras Kitchen Light Mode Palette */
+    --background: 38 41% 90%; /* #F1EAE2 warm beige background */
+    --foreground: 342 100% 25%; /* #7F001E deep maroon text */
+
+    --card: 38 41% 90%; /* #F1EAE2 */
+    --card-foreground: 342 100% 25%; /* #7F001E */
+
+    --popover: 38 41% 90%;
+    --popover-foreground: 342 100% 25%;
+
+    --primary: 342 100% 25%; /* #7F001E maroon */
+    --primary-foreground: 38 41% 90%; /* #F1EAE2 cream text on maroon */
+
+    --secondary: 28 23% 73%; /* #CEB8AA warm accent beige */
+    --secondary-foreground: 342 100% 25%; /* #7F001E */
+
+    --muted: 28 23% 73%; /* #CEB8AA */
+    --muted-foreground: 342 100% 35%; /* Slightly lighter maroon */
+
+    --accent: 28 23% 73%; /* #CEB8AA warm beige accent */
+    --accent-foreground: 342 100% 25%; /* #7F001E */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 38 41% 90%;
+
+    --border: 28 23% 80%; /* Lighter version of accent */
+    --input: 28 23% 80%;
+    --ring: 342 100% 25%; /* #7F001E */
+
+    /* Sabras Kitchen Design Tokens */
+    --hero-overlay: 38 41% 90% / 0.85; /* Semi-transparent beige */
+    --gradient-warm: linear-gradient(135deg, hsl(38 41% 90%), hsl(28 23% 73%));
+    --shadow-warm: 0 4px 20px hsl(342 100% 25% / 0.1);
+    --shadow-hover: 0 8px 30px hsl(342 100% 25% / 0.15);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Sabras Kitchen Dark Mode Palette */
+    --background: 342 100% 25%; /* #7F001E rich maroon background */
+    --foreground: 38 41% 90%; /* #F1EAE2 cream text */
+
+    --card: 342 100% 25%; /* #7F001E */
+    --card-foreground: 38 41% 90%; /* #F1EAE2 */
+
+    --popover: 342 100% 25%;
+    --popover-foreground: 38 41% 90%;
+
+    --primary: 38 41% 90%; /* #F1EAE2 cream primary */
+    --primary-foreground: 342 100% 25%; /* #7F001E maroon text on cream */
+
+    --secondary: 28 23% 73%; /* #CEB8AA warm accent beige */
+    --secondary-foreground: 38 41% 90%; /* #F1EAE2 */
+
+    --muted: 28 23% 73%; /* #CEB8AA */
+    --muted-foreground: 38 41% 85%; /* Slightly darker cream */
+
+    --accent: 28 23% 73%; /* #CEB8AA warm beige accent */
+    --accent-foreground: 38 41% 90%; /* #F1EAE2 */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 38 41% 90%;
+
+    --border: 28 23% 65%; /* Darker version of accent */
+    --input: 28 23% 65%;
+    --ring: 38 41% 90%; /* #F1EAE2 */
+
+    /* Dark mode design tokens */
+    --hero-overlay: 342 100% 25% / 0.9; /* Deep maroon overlay */
+    --shadow-warm: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --shadow-hover: 0 8px 30px hsl(0 0% 0% / 0.4);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

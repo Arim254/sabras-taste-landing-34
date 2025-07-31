@@ -1,0 +1,1290 @@
+# SABRAS KITCHEN - COMPLETE PROJECT CODE
+# ==========================================
+# This file contains all the source code for the Sabras Kitchen catering website
+# Generated on: 2024-06-15T00:00:00.000Z
+
+## PROJECT STRUCTURE
+```
+src/
+├── components/
+│   ├── ui/           # Shadcn UI components
+│   ├── Header.tsx    # Navigation header
+│   ├── Hero.tsx      # Hero section
+│   ├── About.tsx     # About section
+│   ├── Services.tsx  # Services section
+│   ├── Gallery.tsx   # Image gallery
+│   ├── Testimonials.tsx  # Customer reviews
+│   ├── Contact.tsx   # Contact form
+│   └── Footer.tsx    # Footer
+├── pages/
+│   └── Index.tsx     # Main page
+├── assets/           # Images
+├── hooks/            # Custom hooks
+├── lib/              # Utilities
+├── App.tsx           # App component
+├── main.tsx          # Entry point
+└── index.css         # Global styles
+```
+
+## CONFIGURATION FILES
+# ==========================================
+
+### tailwind.config.ts
+```typescript
+import type { Config } from "tailwindcss";
+
+export default {
+  darkMode: ["class"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
+  prefix: "",
+  theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      backgroundImage: {
+        "gradient-warm": "var(--gradient-warm)",
+        "hero-overlay": "var(--hero-overlay)",
+      },
+      boxShadow: {
+        "warm": "var(--shadow-warm)",
+        "warm-hover": "var(--shadow-warm-hover)",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config;
+```
+
+### src/index.css
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Sabras Kitchen Design System - Light Mode */
+    --background: 26 22 20; /* Deep warm brown background */
+    --foreground: 39 22 15; /* Rich dark brown text */
+    
+    --card: 30 25 22; /* Slightly lighter brown for cards */
+    --card-foreground: 39 22 15; /* Rich text on cards */
+    
+    --popover: 30 25 22;
+    --popover-foreground: 39 22 15;
+    
+    --primary: 6 78% 25%; /* Deep maroon #7F001E */
+    --primary-foreground: 26 22 20; /* Brown text on maroon */
+    
+    --secondary: 25 30% 70%; /* Warm beige #CEB8AA */
+    --secondary-foreground: 39 22 15; /* Dark text on beige */
+    
+    --muted: 28 20% 65%; /* Muted beige */
+    --muted-foreground: 39 22 15; /* Dark text on muted */
+    
+    --accent: 25 30% 70%; /* Warm beige accent #CEB8AA */
+    --accent-foreground: 39 22 15; /* Dark text on accent */
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 28 20% 65%; /* Muted beige borders */
+    --input: 28 20% 65%; /* Muted beige input borders */
+    --ring: 6 78% 25%; /* Maroon focus rings */
+    
+    --radius: 0.75rem;
+    
+    /* Custom Design Tokens */
+    --gradient-warm: linear-gradient(135deg, hsl(26, 22%, 20%) 0%, hsl(30, 25%, 22%) 50%, hsl(28, 20%, 25%) 100%);
+    --hero-overlay: linear-gradient(135deg, hsl(26, 22%, 20% / 0.8) 0%, hsl(30, 25%, 22% / 0.7) 100%);
+    --shadow-warm: 0 4px 20px hsl(39, 22%, 15% / 0.15);
+    --shadow-warm-hover: 0 8px 30px hsl(39, 22%, 15% / 0.25);
+  }
+
+  .dark {
+    /* Dark mode keeps the same warm palette but inverted */
+    --background: 6 78% 25%; /* Deep maroon background */
+    --foreground: 26 22% 85%; /* Light cream text */
+    
+    --card: 6 60% 30%; /* Slightly lighter maroon for cards */
+    --card-foreground: 26 22% 85%; /* Light text on cards */
+    
+    --popover: 6 60% 30%;
+    --popover-foreground: 26 22% 85%;
+    
+    --primary: 26 22% 85%; /* Light cream #F1EAE2 */
+    --primary-foreground: 6 78% 25%; /* Maroon text on cream */
+    
+    --secondary: 25 30% 70%; /* Keep warm beige */
+    --secondary-foreground: 6 78% 25%; /* Maroon text on beige */
+    
+    --muted: 6 40% 35%; /* Muted maroon */
+    --muted-foreground: 26 22% 75%; /* Light text on muted */
+    
+    --accent: 25 30% 70%; /* Keep warm beige accent */
+    --accent-foreground: 6 78% 25%; /* Maroon text on accent */
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 6 40% 35%; /* Muted maroon borders */
+    --input: 6 40% 35%; /* Muted maroon input borders */
+    --ring: 26 22% 85%; /* Cream focus rings */
+    
+    /* Dark mode gradients and shadows */
+    --gradient-warm: linear-gradient(135deg, hsl(6, 78%, 25%) 0%, hsl(6, 60%, 30%) 50%, hsl(6, 40%, 35%) 100%);
+    --hero-overlay: linear-gradient(135deg, hsl(6, 78%, 25% / 0.9) 0%, hsl(6, 60%, 30% / 0.8) 100%);
+    --shadow-warm: 0 4px 20px hsl(6, 78%, 15% / 0.3);
+    --shadow-warm-hover: 0 8px 30px hsl(6, 78%, 15% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+```
+
+## MAIN APPLICATION FILES
+# ==========================================
+
+### src/main.tsx
+```typescript
+import { createRoot } from 'react-dom/client'
+import App from './App.tsx'
+import './index.css'
+
+createRoot(document.getElementById("root")!).render(<App />);
+```
+
+### src/App.tsx
+```typescript
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
+
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
+export default App;
+```
+
+### src/pages/Index.tsx
+```typescript
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Services from "@/components/Services";
+import Gallery from "@/components/Gallery";
+import Testimonials from "@/components/Testimonials";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+
+const Index = () => {
+  return (
+    <div className="min-h-screen">
+      <Header />
+      <Hero />
+      <About />
+      <Services />
+      <Gallery />
+      <Testimonials />
+      <Contact />
+      <Footer />
+    </div>
+  );
+};
+
+export default Index;
+```
+
+## COMPONENTS
+# ==========================================
+
+### src/components/Header.tsx
+```typescript
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
+
+  return (
+    <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50 shadow-warm">
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center space-x-2">
+            <div className="text-2xl font-bold text-primary">Sabras Kitchen</div>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            <button 
+              onClick={() => scrollToSection('about')}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              About
+            </button>
+            <button 
+              onClick={() => scrollToSection('services')}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Services
+            </button>
+            <button 
+              onClick={() => scrollToSection('gallery')}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Gallery
+            </button>
+            <button 
+              onClick={() => scrollToSection('testimonials')}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Reviews
+            </button>
+            <Button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-warm-hover transition-all duration-300"
+            >
+              Book Your Event
+            </Button>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-primary"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <nav className="md:hidden mt-4 pb-4 border-t border-border pt-4">
+            <div className="flex flex-col space-y-4">
+              <button 
+                onClick={() => scrollToSection('about')}
+                className="text-left text-foreground hover:text-primary transition-colors"
+              >
+                About
+              </button>
+              <button 
+                onClick={() => scrollToSection('services')}
+                className="text-left text-foreground hover:text-primary transition-colors"
+              >
+                Services
+              </button>
+              <button 
+                onClick={() => scrollToSection('gallery')}
+                className="text-left text-foreground hover:text-primary transition-colors"
+              >
+                Gallery
+              </button>
+              <button 
+                onClick={() => scrollToSection('testimonials')}
+                className="text-left text-foreground hover:text-primary transition-colors"
+              >
+                Reviews
+              </button>
+              <Button 
+                onClick={() => scrollToSection('contact')}
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+              >
+                Book Your Event
+              </Button>
+            </div>
+          </nav>
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default Header;
+```
+
+### src/components/Hero.tsx
+```typescript
+import { Button } from "@/components/ui/button";
+import heroImage from "@/assets/hero-catering.jpg";
+
+const Hero = () => {
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroImage})` }}
+      />
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-hero-overlay" />
+      
+      {/* Content */}
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-primary mb-6 leading-tight">
+          Taste the Tradition.
+          <br />
+          <span className="text-primary/90">Experience the Flavor.</span>
+        </h1>
+        
+        <p className="text-xl md:text-2xl text-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Delicious catering for weddings, parties, and corporate events.
+        </p>
+        
+        <Button 
+          onClick={scrollToContact}
+          size="lg"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 shadow-warm-hover transition-all duration-300 transform hover:scale-105"
+        >
+          Book Your Event
+        </Button>
+      </div>
+      
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-1 h-12 bg-primary/50 rounded-full" />
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
+```
+
+### src/components/About.tsx
+```typescript
+import { Card, CardContent } from "@/components/ui/card";
+
+const About = () => {
+  return (
+    <section id="about" className="py-20 bg-gradient-warm">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-8">
+            About Sabras Kitchen
+          </h2>
+          
+          <Card className="bg-card/90 backdrop-blur-sm shadow-warm border-border/50">
+            <CardContent className="p-8 md:p-12">
+              <p className="text-lg md:text-xl text-foreground leading-relaxed mb-6">
+                Born from family recipes passed down through generations, Sabras Kitchen brings 
+                authentic taste and elegant presentation to every plate.
+              </p>
+              
+              <p className="text-foreground/80 leading-relaxed max-w-3xl mx-auto">
+                Our passion for culinary excellence stems from a deep-rooted tradition of hospitality 
+                and love for good food. Every dish we create tells a story of heritage, crafted with 
+                the finest ingredients and presented with the care your special moments deserve.
+              </p>
+              
+              <div className="mt-8 pt-8 border-t border-border/30">
+                <blockquote className="text-lg italic text-primary/90">
+                  "Food is the thread that weaves families together, and we are honored to be part of your story."
+                </blockquote>
+                <p className="text-sm text-muted-foreground mt-2">- The Sabras Kitchen Family</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default About;
+```
+
+### src/components/Services.tsx
+```typescript
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Heart, Users, Briefcase } from "lucide-react";
+
+const services = [
+  {
+    title: "Wedding Catering",
+    description: "Make your special day unforgettable with our elegant wedding menus designed to delight every guest.",
+    icon: Heart,
+    features: ["Custom menu design", "Elegant presentation", "Full service staff", "Dietary accommodations"]
+  },
+  {
+    title: "Private Dinners",
+    description: "Intimate gatherings deserve intimate attention. Let us create a memorable dining experience in your home.",
+    icon: Users,
+    features: ["Personal chef service", "Intimate settings", "Custom courses", "Wine pairings available"]
+  },
+  {
+    title: "Corporate Events",
+    description: "Professional catering that impresses clients and colleagues while maintaining the highest standards.",
+    icon: Briefcase,
+    features: ["Business lunch menus", "Conference catering", "Office parties", "Professional presentation"]
+  }
+];
+
+const Services = () => {
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section id="services" className="py-20 bg-background">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+            Our Services
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            From intimate gatherings to grand celebrations, we bring exceptional cuisine to every occasion.
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {services.map((service, index) => {
+            const IconComponent = service.icon;
+            return (
+              <Card key={index} className="bg-card shadow-warm border-border hover:shadow-warm-hover transition-all duration-300 transform hover:-translate-y-1">
+                <CardHeader className="text-center pb-4">
+                  <div className="mx-auto w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-4">
+                    <IconComponent className="w-8 h-8 text-accent-foreground" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-primary">{service.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-foreground/80 mb-6 leading-relaxed">
+                    {service.description}
+                  </p>
+                  
+                  <ul className="text-sm text-muted-foreground space-y-2 mb-6">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center justify-center">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <Button 
+                    variant="outline" 
+                    onClick={scrollToContact}
+                    className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                  >
+                    Get a Quote
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Services;
+```
+
+### src/components/Gallery.tsx
+```typescript
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+import gallery4 from "@/assets/gallery-4.jpg";
+import gallery5 from "@/assets/gallery-5.jpg";
+import gallery6 from "@/assets/gallery-6.jpg";
+
+const galleryImages = [
+  { src: gallery1, alt: "Elegant plated appetizers" },
+  { src: gallery2, alt: "Beautiful wedding cake" },
+  { src: gallery3, alt: "Gourmet main course" },
+  { src: gallery4, alt: "Elegant table setting" },
+  { src: gallery5, alt: "Fresh colorful salad" },
+  { src: gallery6, alt: "Dessert table display" }
+];
+
+const Gallery = () => {
+  return (
+    <section id="gallery" className="py-20 bg-gradient-warm">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+            Our Culinary Gallery
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            A visual feast showcasing our attention to detail and passion for beautiful, delicious food.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {galleryImages.map((image, index) => (
+            <div 
+              key={index}
+              className="relative overflow-hidden rounded-lg shadow-warm hover:shadow-warm-hover transition-all duration-300 transform hover:scale-105 group"
+            >
+              <img 
+                src={image.src} 
+                alt={image.alt}
+                className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="text-primary-foreground text-center p-4">
+                  <p className="font-semibold">{image.alt}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="text-center mt-12">
+          <p className="text-muted-foreground">
+            Every dish is crafted with love and presented with elegance
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Gallery;
+```
+
+### src/components/Testimonials.tsx
+```typescript
+import { Card, CardContent } from "@/components/ui/card";
+import { Star } from "lucide-react";
+
+const testimonials = [
+  {
+    name: "Miriam W.",
+    review: "The food was stunning and full of flavor—our guests are still talking about it! Sabras Kitchen made our wedding day absolutely perfect.",
+    rating: 5,
+    event: "Wedding Reception"
+  },
+  {
+    name: "David S.",
+    review: "Professional, delicious, and beautifully presented. The corporate lunch was a huge success and impressed all our clients.",
+    rating: 5,
+    event: "Corporate Event"
+  },
+  {
+    name: "Sarah M.",
+    review: "From the first bite to the last, everything was exceptional. The personal touch and attention to detail made our anniversary dinner unforgettable.",
+    rating: 5,
+    event: "Private Dinner"
+  }
+];
+
+const Testimonials = () => {
+  return (
+    <section id="testimonials" className="py-20 bg-background">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+            What Our Clients Say
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Don't just take our word for it - hear from the families and businesses who trusted us with their special moments.
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {testimonials.map((testimonial, index) => (
+            <Card key={index} className="bg-card shadow-warm border-border hover:shadow-warm-hover transition-all duration-300">
+              <CardContent className="p-6">
+                {/* Stars */}
+                <div className="flex items-center mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                
+                {/* Review Text */}
+                <blockquote className="text-foreground/90 italic leading-relaxed mb-4">
+                  "{testimonial.review}"
+                </blockquote>
+                
+                {/* Client Info */}
+                <div className="border-t border-border/30 pt-4">
+                  <p className="font-semibold text-primary">{testimonial.name}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.event}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        
+        <div className="text-center mt-12">
+          <div className="bg-accent/20 rounded-lg p-6 max-w-2xl mx-auto">
+            <p className="text-primary font-semibold text-lg mb-2">
+              Ready to create your own memorable experience?
+            </p>
+            <p className="text-muted-foreground">
+              Join our family of satisfied clients and let us make your event extraordinary.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Testimonials;
+```
+
+### src/components/Contact.tsx
+```typescript
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Phone, Mail, MessageCircle, Calendar, Users, Utensils } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+const Contact = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    eventDate: '',
+    eventType: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSelectChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      eventType: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for your inquiry. We'll get back to you within 24 hours to discuss your event details.",
+    });
+    
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      eventDate: '',
+      eventType: '',
+      message: ''
+    });
+  };
+
+  return (
+    <section id="contact" className="py-20 bg-gradient-warm">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+            Let's Plan Your Event
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Ready to create something delicious? Get in touch and let's discuss how we can make your event unforgettable.
+          </p>
+        </div>
+        
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <Card className="bg-card shadow-warm border-border">
+            <CardHeader>
+              <CardTitle className="text-2xl text-primary flex items-center">
+                <Utensils className="w-6 h-6 mr-2" />
+                Book Your Event
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input 
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="border-border focus:ring-primary"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input 
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="border-border focus:ring-primary"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="eventDate">Event Date</Label>
+                  <Input 
+                    id="eventDate"
+                    name="eventDate"
+                    type="date"
+                    value={formData.eventDate}
+                    onChange={handleInputChange}
+                    required
+                    className="border-border focus:ring-primary"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="eventType">Type of Event</Label>
+                  <Select onValueChange={handleSelectChange} required>
+                    <SelectTrigger className="border-border focus:ring-primary">
+                      <SelectValue placeholder="Select event type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="wedding">Wedding</SelectItem>
+                      <SelectItem value="private-dinner">Private Dinner</SelectItem>
+                      <SelectItem value="corporate">Corporate Event</SelectItem>
+                      <SelectItem value="birthday">Birthday Party</SelectItem>
+                      <SelectItem value="anniversary">Anniversary</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="message">Event Details & Special Requests</Label>
+                  <Textarea 
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={4}
+                    placeholder="Tell us about your event, number of guests, dietary requirements, or any special requests..."
+                    className="border-border focus:ring-primary"
+                  />
+                </div>
+                
+                <Button 
+                  type="submit"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-warm-hover transition-all duration-300"
+                >
+                  Send Inquiry
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+          
+          {/* Contact Information */}
+          <div className="space-y-8">
+            <Card className="bg-card shadow-warm border-border">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-primary mb-6">Get in Touch</h3>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <Phone className="w-5 h-5 text-accent-foreground" />
+                    <div>
+                      <p className="font-semibold text-foreground">Phone</p>
+                      <p className="text-muted-foreground">(555) 123-4567</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <Mail className="w-5 h-5 text-accent-foreground" />
+                    <div>
+                      <p className="font-semibold text-foreground">Email</p>
+                      <p className="text-muted-foreground">hello@sabraskitchen.com</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <Calendar className="w-5 h-5 text-accent-foreground" />
+                    <div>
+                      <p className="font-semibold text-foreground">Response Time</p>
+                      <p className="text-muted-foreground">Within 24 hours</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-card shadow-warm border-border">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-primary mb-4 flex items-center">
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Quick Chat
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  Have a quick question? Chat directly with our chef for immediate assistance.
+                </p>
+                <Button 
+                  variant="outline" 
+                  className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  onClick={() => window.open('https://wa.me/5551234567', '_blank')}
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Chat on WhatsApp
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-primary text-primary-foreground shadow-warm border-border">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold mb-4 flex items-center">
+                  <Users className="w-5 h-5 mr-2" />
+                  Planning Your Event?
+                </h3>
+                <ul className="space-y-2 text-primary-foreground/90">
+                  <li>• Free consultation and menu planning</li>
+                  <li>• Custom dietary accommodations</li>
+                  <li>• Professional service staff available</li>
+                  <li>• Equipment and setup included</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
+```
+
+### src/components/Footer.tsx
+```typescript
+import { Phone, Mail, Instagram, Facebook, Heart } from "lucide-react";
+
+const Footer = () => {
+  return (
+    <footer className="bg-primary text-primary-foreground py-12">
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
+          {/* Brand */}
+          <div>
+            <h3 className="text-2xl font-bold mb-4">Sabras Kitchen</h3>
+            <p className="text-primary-foreground/80 leading-relaxed">
+              Bringing authentic taste and elegant presentation to every plate. 
+              Creating memorable culinary experiences for life's special moments.
+            </p>
+          </div>
+          
+          {/* Contact Info */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Contact Information</h4>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <Phone className="w-4 h-4" />
+                <span className="text-primary-foreground/80">(555) 123-4567</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail className="w-4 h-4" />
+                <span className="text-primary-foreground/80">hello@sabraskitchen.com</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* Social & Services */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
+            <div className="flex space-x-4 mb-6">
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+            </div>
+            
+            <div className="text-sm text-primary-foreground/80">
+              <p className="mb-1">Wedding Catering</p>
+              <p className="mb-1">Private Dinners</p>
+              <p>Corporate Events</p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Bottom Bar */}
+        <div className="border-t border-primary-foreground/20 pt-8 text-center">
+          <p className="text-primary-foreground/60 text-sm mb-2">
+            © 2024 Sabras Kitchen. All rights reserved.
+          </p>
+          <p className="text-primary-foreground/80 text-sm flex items-center justify-center">
+            Made with <Heart className="w-4 h-4 mx-1 fill-current" /> for food lovers everywhere
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
+```
+
+## UTILITY FILES
+# ==========================================
+
+### src/lib/utils.ts
+```typescript
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+### src/hooks/use-toast.ts
+```typescript
+import * as React from "react"
+
+import type {
+  ToastActionElement,
+  ToastProps,
+} from "@/components/ui/toast"
+
+const TOAST_LIMIT = 1
+const TOAST_REMOVE_DELAY = 1000000
+
+type ToasterToast = ToastProps & {
+  id: string
+  title?: React.ReactNode
+  description?: React.ReactNode
+  action?: ToastActionElement
+}
+
+const actionTypes = {
+  ADD_TOAST: "ADD_TOAST",
+  UPDATE_TOAST: "UPDATE_TOAST",
+  DISMISS_TOAST: "DISMISS_TOAST",
+  REMOVE_TOAST: "REMOVE_TOAST",
+} as const
+
+let count = 0
+
+function genId() {
+  count = (count + 1) % Number.MAX_SAFE_INTEGER
+  return count.toString()
+}
+
+type ActionType = typeof actionTypes
+
+type Action =
+  | {
+      type: ActionType["ADD_TOAST"]
+      toast: ToasterToast
+    }
+  | {
+      type: ActionType["UPDATE_TOAST"]
+      toast: Partial<ToasterToast>
+    }
+  | {
+      type: ActionType["DISMISS_TOAST"]
+      toastId?: ToasterToast["id"]
+    }
+  | {
+      type: ActionType["REMOVE_TOAST"]
+      toastId?: ToasterToast["id"]
+    }
+
+interface State {
+  toasts: ToasterToast[]
+}
+
+const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
+
+const addToRemoveQueue = (toastId: string) => {
+  if (toastTimeouts.has(toastId)) {
+    return
+  }
+
+  const timeout = setTimeout(() => {
+    toastTimeouts.delete(toastId)
+    dispatch({
+      type: "REMOVE_TOAST",
+      toastId: toastId,
+    })
+  }, TOAST_REMOVE_DELAY)
+
+  toastTimeouts.set(toastId, timeout)
+}
+
+export const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "ADD_TOAST":
+      return {
+        ...state,
+        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
+      }
+
+    case "UPDATE_TOAST":
+      return {
+        ...state,
+        toasts: state.toasts.map((t) =>
+          t.id === action.toast.id ? { ...t, ...action.toast } : t
+        ),
+      }
+
+    case "DISMISS_TOAST": {
+      const { toastId } = action
+
+      // ! Side effects ! - This could be extracted into a dismissToast() action,
+      // but I'll keep it here for simplicity
+      if (toastId) {
+        addToRemoveQueue(toastId)
+      } else {
+        state.toasts.forEach((toast) => {
+          addToRemoveQueue(toast.id)
+        })
+      }
+
+      return {
+        ...state,
+        toasts: state.toasts.map((t) =>
+          t.id === toastId || toastId === undefined
+            ? {
+                ...t,
+                open: false,
+              }
+            : t
+        ),
+      }
+    }
+    case "REMOVE_TOAST":
+      if (action.toastId === undefined) {
+        return {
+          ...state,
+          toasts: [],
+        }
+      }
+      return {
+        ...state,
+        toasts: state.toasts.filter((t) => t.id !== action.toastId),
+      }
+  }
+}
+
+const listeners: Array<(state: State) => void> = []
+
+let memoryState: State = { toasts: [] }
+
+function dispatch(action: Action) {
+  memoryState = reducer(memoryState, action)
+  listeners.forEach((listener) => {
+    listener(memoryState)
+  })
+}
+
+type Toast = Omit<ToasterToast, "id">
+
+function toast({ ...props }: Toast) {
+  const id = genId()
+
+  const update = (props: ToasterToast) =>
+    dispatch({
+      type: "UPDATE_TOAST",
+      toast: { ...props, id },
+    })
+  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
+
+  dispatch({
+    type: "ADD_TOAST",
+    toast: {
+      ...props,
+      id,
+      open: true,
+      onOpenChange: (open) => {
+        if (!open) dismiss()
+      },
+    },
+  })
+
+  return {
+    id: id,
+    dismiss,
+    update,
+  }
+}
+
+function useToast() {
+  const [state, setState] = React.useState<State>(memoryState)
+
+  React.useEffect(() => {
+    listeners.push(setState)
+    return () => {
+      const index = listeners.indexOf(setState)
+      if (index > -1) {
+        listeners.splice(index, 1)
+      }
+    }
+  }, [state])
+
+  return {
+    ...state,
+    toast,
+    dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
+  }
+}
+
+export { useToast, toast }
+```
+
+## PACKAGE.JSON DEPENDENCIES
+# ==========================================
+The project uses these key dependencies:
+- React 18.3.1
+- TypeScript
+- Tailwind CSS with custom design tokens
+- Radix UI components
+- Lucide React icons
+- React Hook Form
+- React Router DOM
+- Tanstack Query
+
+## BUILD & DEPLOYMENT
+# ==========================================
+To run the project:
+1. npm install
+2. npm run dev
+
+To build for production:
+1. npm run build
+
+The project is ready to deploy to any static hosting service like Vercel, Netlify, or similar.
+
+# ==========================================
+# END OF CODE EXPORT
+# Generated: 2024-06-15T00:00:00.000Z
+# Project: Sabras Kitchen Catering Website
+# ==========================================
